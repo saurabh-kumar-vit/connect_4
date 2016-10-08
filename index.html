@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Connect 4 by saurabh-kumar-vit</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Connect 4</h1>
+        <p></p>
+
+        <p class="view"><a href="https://github.com/saurabh-kumar-vit/connect_4">View the Project on GitHub <small>saurabh-kumar-vit/connect_4</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/saurabh-kumar-vit/connect_4/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/saurabh-kumar-vit/connect_4/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/saurabh-kumar-vit/connect_4">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="ai-bot-for-playing-connect-4" class="anchor" href="#ai-bot-for-playing-connect-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AI Bot for playing Connect 4</h1>
+
+<p>Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping colored discs from the top into a seven-column, six-row vertically-suspended grid. The pieces fall straight down, occupying the next available space within the column. The objective of the game is to connect four of one's own discs of the same color next to each other vertically, horizontally, or diagonally before your opponent. Connect Four is a strongly solved game. The first player can always win by playing the right moves.</p>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>The project is hosted on Github, there are a number of ways to download it:</p>
+
+<ul>
+<li>Clone the git repository via https, ssh or with the Github Windows or Mac clients.</li>
+<li>Download as zip or tar.gz</li>
+</ul>
+
+<h3>
+<a id="prerequisities" class="anchor" href="#prerequisities" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisities</h3>
+
+<p>The project requires the following things before you can play the game:</p>
+
+<ul>
+<li>FireFox web browser version &lt; 48</li>
+<li>Python version &gt; 3</li>
+<li>Selenium for python</li>
+<li>A working internet connection, as the game is hosted online</li>
+</ul>
+
+<h3>
+<a id="installing" class="anchor" href="#installing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing</h3>
+
+<p>You can download FireFox from the official website at <a href="https://www.mozilla.org/en-US/firefox/new/">Download FireFox</a></p>
+
+<p>If you are using Linux or Mac OS then you don't need to do anything to install python, you can simply use the interpreter by opening the terminal and typing the command.</p>
+
+<pre><code>python3 main.py
+</code></pre>
+
+<p>For windows systems, the steps are a bit more complex. You can use this guide in order to properly setup python on you windows desktop <a href="http://www.howtogeek.com/197947/how-to-install-python-on-windows/">How to Install Python on Windows</a>. Remember that you need to install a version &gt; 3 for this project.</p>
+
+<p>Before you can actually start playing against the bot you first need to install Selenium which is a browser automation tool for python. You may consider creating a virtual environment first to isolate the installation.</p>
+
+<pre><code>pip3 install -U selenium
+</code></pre>
+
+<p>Before you move on to the next step I recommend that you test if selenium has been properly installed on your system. To do that open the python interpreter and run the following code.</p>
+
+<pre><code>$python3
+&gt;&gt;from selenium import webdriver
+
+&gt;&gt;browser = webdriver.Firefox()
+&gt;&gt;browser.get('http://google.com/')
+</code></pre>
+
+<p>If the code successfully opens a new FireFox window and navigates to the requested link, then you are all set and ready for starting your match against the bot!</p>
+
+<h2>
+<a id="running-the-game" class="anchor" href="#running-the-game" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running the game</h2>
+
+<p>In order to simplify the coding process and devote more time to actually learning and implementing the AI for the bot, I decided that I won't be making the interface for the game myself. Instead, I have used an open, freely available version of connect 4 hosted online at <a href="https://www.playc4.com/">Play Connect 4</a>. In order to have a 2 player game, you need to copy the link given at the right side and paste in another browser tab. This allows you to send the link to another friend sitting in another corner of the world and have them lose against the bot :).</p>
+
+<p>To run the game navigate to the directory where the code is present and type the command:</p>
+
+<pre><code>python3 main.py
+</code></pre>
+
+<p>This will open a new Firefox window and the link mentioned above will automatically open as one of the tabs.</p>
+
+<p>You will notice in the terminal the bot says:</p>
+
+<pre><code>Press Enter to Start the Bot
+</code></pre>
+
+<p>Before you do that you need to copy the link to the second player and open it in a new tab. Wait for the page to load and then press start game. Doing so will initialize the second player allowing the bot to make its move. Go to the terminal and press Enter.</p>
+
+<p>The bot is designed to only play as the first player (sorry about that). Once it has made its move you can go to the tab of the second player and make your move. The bot is smart enough to detect the move that you have made and once it does that it will make its move, you don't need to switch tabs or even look at the terminal (it does show some useful info).</p>
+
+<h2>
+<a id="how-does-the-bot-work" class="anchor" href="#how-does-the-bot-work" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How does the bot work</h2>
+
+<p>Keeping aside the automation done by Selenium, The bot primarily works on the MiniMax algorithm. </p>
+
+<p>From Wikipedia: "Minimax (sometimes MinMax or MM) is a decision rule used in decision theory, game theory, statistics and philosophy for minimizing the possible loss for a worst case (maximum loss) scenario. Alternatively, it can be thought of as maximizing the minimum gain (maximin or MaxMin). Originally formulated for two-player zero-sum game theory, covering both the cases where players take alternate moves and those where they make simultaneous moves, it has also been extended to more complex games and to general decision making in the presence of uncertainty."</p>
+
+<p>I am not going to go into how I have implemented it as it is a simple and straightforward algorithm and would be better explained by a course directed towards AI. Instead, I will discuss how I optimized it for my implementation and the design of the Utility function used to evaluate board states.</p>
+
+<h3>
+<a id="search-optimizations" class="anchor" href="#search-optimizations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Search optimizations</h3>
+
+<p>To give you a little background, using just pure minimax the bot is only able to go only unto a depth of 2 moves (7^4 nodes at leaves since 1 move is equal to 2 levels in the tree). Going above that slows heavily slows down the bot and response that take several minutes.</p>
+
+<h4>
+<a id="alpha-beta-pruning" class="anchor" href="#alpha-beta-pruning" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Alpha Beta pruning</h4>
+
+<p>A simple optimization technique used with minimax that cuts off further evaluation of a node once it has determined that its relative magnitude will not change. Pruning with Alpha Beta depends a lot on the ordering of the nodes, as of now I have not implemented any form of ordering but I do plan on doing that in the near future.</p>
+
+<h4>
+<a id="transposition-table" class="anchor" href="#transposition-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Transposition Table</h4>
+
+<p>If you were to draw the tree constructed while minimax search you will find that there is a very small portion (less than 5%) of board states are actually unique. This means that if store the value of an evaluated board state then we will effectively be pruning a massive portion of the tree. 
+This is implemented by converting the board state into a 42 character long string and using that as a unique key value in a python dictionary with the board's utility as the value. After the minimax has done its calculation the current transposition table is dropped.</p>
+
+<p>By implementing these to optimizations together the algorithm is able to easily reach up to a depth of 4 (evaluating and pruning over 500 million nodes). It's possible to go up to a depth 5 and get a response in reasonable time but doing that results in an abnormally large transposition table, effectively slowing down the bot since the system will be low in memory.</p>
+
+<h3>
+<a id="evaluating-board-states" class="anchor" href="#evaluating-board-states" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Evaluating Board states</h3>
+
+<p>A major part of Minimax is how well you evaluate board states. For this project, the evaluation function at the moment depends on how many threats are present on that board state. To be specific the utility of each board is simple</p>
+
+<pre><code>Linear function of player 1's threat - Linear function of player 2's threat
+</code></pre>
+
+<p>now the linear function means that for each threat a constant value is multiples with it to distinguish it from other threats.
+For instance, an odd threat of player 1 is a lot better than an odd threat of player 2, so we will multiply a higher constant to the threat count of player 1.</p>
+
+<p>The way threats are counted is quite simple. Its is based on the logic that if you treat a blank spot (no player has a coin there) as a player and check if he has performed a connect 4 relatives to that spot than the player has a threat at that spot.
+Now we know that threats can only occur at the boundary formed by the occupied slots, so the algorithm first finds this boundary and then calculates the threats that each user has relative to these points.</p>
+
+<p>For example, if the board looks like this</p>
+
+<pre><code>0 0 0 0 0 0 0
+0 0 0 0 0 0 0
+0 0 0 0 0 0 0 
+0 0 2 0 0 0 0
+0 0 1 2 0 0 0
+0 1 1 1 2 0 0
+</code></pre>
+
+<p>Then the boundry will be</p>
+
+<pre><code>0 0 0 0 0 0 0
+0 0 0 0 0 0 0
+0 X X X 0 0 0 
+0 X 2 X 0 0 0
+X X 1 2 X X 0
+X 1 1 1 2 X X
+</code></pre>
+
+<p>Now the algorithm will iterate over each of these boundry points and perform a directed recursive search to count how many coins of the player are connected across all diagonals.</p>
+
+<p>So if we were to count the threats for player 2 at point <a href="consider%20it%20to%20a%202D%20matrix">0, 2</a> the the search would go something like this:</p>
+
+<p>First find all the coins of the player in points 8 neighborhood.</p>
+
+<pre><code>0 0 0 0 0 0 0
+0 0 0 0 0 0 0
+0 X 0 0 0 0 0 
+0 0 2 0 0 0 0
+0 0 0 0 0 0 0
+0 0 0 0 0 0 0
+</code></pre>
+
+<p>Now iterate over each of these neighbors and then recursively procede in the same direction as it took to reach to the neighbor</p>
+
+<pre><code>0 0 0 0 0 0 0
+0 0 0 0 0 0 0
+0 X 0 0 0 0 0 
+0 0 2 0 0 0 0
+0 0 0 2 0 0 0
+0 0 0 0 0 0 0
+
+0 0 0 0 0 0 0
+0 0 0 0 0 0 0
+0 X 0 0 0 0 0 
+0 0 2 0 0 0 0
+0 0 0 2 0 0 0
+0 0 0 0 2 0 0
+</code></pre>
+
+<p>This will happen across all half diagonal, so we can just add the result of 2 half diagonals in order to get the total connected discs across the entire diagonal, and a connect 4 is a threat in that case. So This way a simple algorithm for checking for connect 4 works amazing well for finding open threats on the board as well.</p>
+
+<h2>
+<a id="built-with" class="anchor" href="#built-with" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Built With</h2>
+
+<ul>
+<li>Python</li>
+<li>Selenium </li>
+</ul>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>The code is open for anyone to copy and modify. Feel free to use it as a base for you own projects. I have tried to make the code as modular as possible so that adding new features is easy.</p>
+
+<h2>
+<a id="authors" class="anchor" href="#authors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors</h2>
+
+<ul>
+<li><a href="https://github.com/saurabh-kumar-vit"><strong>Saurabh Kumar</strong></a></li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/saurabh-kumar-vit">saurabh-kumar-vit</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
