@@ -66,9 +66,9 @@ def min_max (depth):
                 v = tmp
                 action = move
             if v >= b:   
+                print (test)
                 return action
             a = max(a, v)
-        
     states = {}
     return action 
 

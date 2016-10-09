@@ -143,6 +143,7 @@ class Game:
                 threats += 100
             elif value > 4:
                 threats += 500
+                hasWon = True
 
         if countthreats:    return threats
         return hasWon
