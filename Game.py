@@ -137,9 +137,12 @@ class Game:
         hasWon = False
 
         for value in connectionValue:
-            if value > 4:
-                threats += 1
-                hasWon = True
+            if value == 3:
+                threats += 10
+            elif value == 4:
+                threats += 100
+            elif value > 4:
+                threats += 500
 
         if countthreats:    return threats
         return hasWon
