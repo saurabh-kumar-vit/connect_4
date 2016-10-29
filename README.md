@@ -119,7 +119,7 @@ X 1 1 1 2 X X
 ```
 Now the algorithm will iterate over each of these boundry points and perform a directed recursive search to count how many coins of the player are connected across all diagonals.
 
-So if we were to count the threats for player 2 at point [0, 2] (consider it to a 2D matrix) the the search would go something like this:
+So if we were to count the threats for player 2 at point (0, 2)(consider it to a 2D matrix) the the search would go something like this:
 
 First find all the coins of the player in points 8 neighborhood.
 ```
@@ -148,6 +148,15 @@ Now iterate over each of these neighbors and then recursively procede in the sam
 ```
 
 This will happen across all half diagonal, so we can just add the result of 2 half diagonals in order to get the total connected discs across the entire diagonal, and a connect 4 is a threat in that case. So This way a simple algorithm for checking for connect 4 works amazing well for finding open threats on the board as well.
+
+But for evaluating the utility of a board, just counting the number threats is not enough, especially when evaluating the early states of the game when there might not be many threats. So instead of just counting threats, we also use the number of connected discs to calculate the utility.
+The cost associated with the number of connections is as follows:
+1. 700 if 3 connected
+2. 100 if 2 connected
+3. 10 if 1 disc
+
+The opponent uses the negatives of the same value. 
+
 
 ## Built With
 
